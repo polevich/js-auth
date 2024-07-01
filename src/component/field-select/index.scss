@@ -15,7 +15,7 @@
 		position: relative;
 	}
 
-	.fiels__value {
+	.field__value {
 		font-size: 14px;
 		color: s.color(dark);
 		&--placeholder {
@@ -62,7 +62,7 @@
 		max-height: 160px;
 		z-index: 1;
 
-		.field--option {
+		.field__option {
 			@include s.click();
 
 			&:not(:last-of-type) {
