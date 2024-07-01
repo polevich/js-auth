@@ -24,7 +24,7 @@
 
 .button {
 	color: s.color(white);
-	background: s.color(main);
+	background-color: s.color(main);
 	padding: s.space(4) s.space(8);
 	border-radius: 10px;
 
@@ -42,6 +42,11 @@
 	font-size: 14px;
 
 	&--success {
+		border-color: s.color(green);
+		color: s.color(green);
+	}
+
+	&--error {
 		border-color: s.color(red);
 		color: s.color(red);
 	}

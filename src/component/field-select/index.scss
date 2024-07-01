@@ -15,6 +15,14 @@
 		position: relative;
 	}
 
+	.fiels__value {
+		font-size: 14px;
+		color: s.color(dark);
+		&--placeholder {
+			color: s.color(light)
+		}
+	}
+
 	.field__container {
 		display: grid;
 		position: relative;

@@ -1,9 +1,9 @@
 class User {
-  static USER_ROLE = {
+	static USER_ROLE = {
 		USER: 1,
 		ADMIN: 2,
 		DEVELOPER: 3,
-	} 
+	}
 
 	static #list = []
 
