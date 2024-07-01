@@ -17,9 +17,9 @@
 
 	.field__value {
 		font-size: 14px;
-		color: s.color(dark);
+		color: s.color('dark');
 		&--placeholder {
-			color: s.color(light)
+			color: s.color('light')
 		}
 	}
 
@@ -30,7 +30,7 @@
 
 	.field__container:hover {
 		.field__select {
-			border-color: s.color(gray);
+			border-color: s.color('gray');
 		}
 	}
 

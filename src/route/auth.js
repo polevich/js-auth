@@ -11,22 +11,22 @@ const { User } = require('../class/user')
 
 // ↙️ тут вводимо шлях (PATH) до сторінки
 router.get('/signup', function (req, res) {
-  // res.render генерує нам HTML сторінку
+	// res.render генерує нам HTML сторінку
 
-  // ↙️ cюди вводимо назву файлу з сontainer
-  return res.render('signup', {
-    // вказуємо назву контейнера
-    name: 'signup',
-    // вказуємо назву компонентів
-    component: ['back-button', 'field', 'field-password'],
+	// ↙️ cюди вводимо назву файлу з сontainer
+	return res.render('signup', {
+		// вказуємо назву контейнера
+		name: 'signup',
+		// вказуємо назву компонентів
+		component: ['back-button', 'field', 'field-password', 'field-select', 'field-checkbox'],
 
-    // вказуємо назву сторінки
-    title: 'Signup page',
-    // ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
-    // вказуємо дані,
-    data: {
-      role: [
-				{value: User.USER_ROLE.USER, text: "Пользователь"},
+		// вказуємо назву сторінки
+		title: 'Signup page',
+		// ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
+		// вказуємо дані,
+		data: {
+			role: [
+				{ value: User.USER_ROLE.USER, text: "Пользователь" },
 				{
 					value: User.USER_ROLE.ADMIN,
 					text: "Администратор",
@@ -36,9 +36,9 @@ router.get('/signup', function (req, res) {
 					text: "Разработчик",
 				},
 			]
-    },
-  })
-  // ↑↑ сюди вводимо JSON дані
+		},
+	})
+	// ↑↑ сюди вводимо JSON дані
 })
 
 

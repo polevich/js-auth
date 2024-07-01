@@ -7,7 +7,6 @@ class FieldSelect {
 			window.addEventListener(
 				'click',
 				(e) => {
-					alert(123)
 					if (!options.parentElement.contains(e.target))
 						options.removeAttribute('active')
 				},
