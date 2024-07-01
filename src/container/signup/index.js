@@ -55,13 +55,19 @@ class SignupForm extends Form {
 		}
 
 		if (name === this.FIELD_NAME.IS_CONFIRM) {
-
+			if (Boolean(value) !== true) {
+				return this.FIELD_ERROR.NOT_CONFIRM
+			}
 		}
 
 	}
 
 	submit = () => {
-		console.log(this.value)
+		if (this.disabled) {
+			this.validateAll()
+		} else {
+			console.log(this.value)
+		}
 	}
 }
 
