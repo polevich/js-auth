@@ -17,22 +17,27 @@
 				<span name="email" class="form__error">Ошибка</span>
 			</div>
 			<div class="form__item">
+				{{> field-select action="signupForm.change" label="Роль" name="role" placeholder="Выберите роль" list=data.role}}
+				<span name="role" class="form__error">Ошибка</span>
+			</div>
+			<div class="form__item">
 				{{> field-password action="signupForm.change" label="Пароль" name="password" placeholder="Введите пароль"}}
 				<span name="password" class="form__error">Ошибка</span>
 			</div>
 			<div class="form__item">
-				{{> field-select action="signupForm.change" label="Роль" name="role" placeholder="Выберите роль" list=data.role}}
-				<span name="role" class="form__error">Ошибка</span>
+				{{> field-password action="signupForm.change" label="Пароль еще раз" name="passwordAgain" placeholder="Введите пароль"}}
+				<span name="passwordAgain" class="form__error">Ошибка</span>
 			</div>
+
 			<div class="form__item">
 				{{> field-checkbox action="signupForm.change" label="Вы соглашаетесь с правилами сервиса" name="isConfirm" }}
 				<span name="isConfirm" class="form__error">Ошибка</span>
 			</div>
 		</div>
 		
-		<button onclick="signupForm.submit()" class="button" type="button">Зарегистрироваться</button>
+		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Зарегистрироваться</button>
 		
-		<span class="alert alert--error" type="button">Внимание, ошибка!</span>
+		<span class="alert alert--disabled" type="button">Внимание, ошибка!</span>
 	</form>
 </div>
 
