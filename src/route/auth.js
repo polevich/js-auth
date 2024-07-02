@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 
 const { User } = require('../class/user')
+const { Confirm } = require('../class/confirm')
 
 User.create({
 	emai: 'test@mail.com',
@@ -47,6 +48,8 @@ router.get('/signup', function (req, res) {
 	// ↑↑ сюди вводимо JSON дані
 })
 
+// ================================================================
+
 router.post('/signup', function (req, res) {
 	const { email, password, role } = req.body
 	console.log(req.body)
@@ -56,6 +59,14 @@ router.post('/signup', function (req, res) {
 		})
 	}
 	try {
+		const user = User.getByEmail(email)
+
+		if (user) {
+			return res.status(400).json({
+				message: "Ошибка. Такой пользователь уже существует",
+			})
+		}
+
 		User.create({ email, password, role })
 		return res.status(200).json({
 			message: "Пользователь успешно зарегистрирован",
@@ -67,6 +78,62 @@ router.post('/signup', function (req, res) {
 	}
 
 })
+
+// ================================================================
+
+// router.get Створює нам один ентпоїнт
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/recovery', function (req, res) {
+	// res.render генерує нам HTML сторінку
+
+	// ↙️ cюди вводимо назву файлу з сontainer
+	return res.render('recovery', {
+		// вказуємо назву контейнера
+		name: 'recovery',
+		// вказуємо назву компонентів
+		component: ['back-button', 'field', 'field-password', 'field-select', 'field-checkbox'],
+
+		// вказуємо назву сторінки
+		title: 'Recovery page',
+		// ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
+		// вказуємо дані,
+		data: {
+
+		},
+	})
+	// ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.post('/recovery', function (req, res) {
+	const { email } = req.body
+	console.log(email)
+
+	if (!email) {
+		return res.status(400).json({
+			message: "Ошибка. Обязательные поля отсутствуют"
+		})
+	}
+
+	try {
+		const user = User.getByEmail(email)
+		if (!user) {
+			return res.status(400).json({
+				message: "Пользователь с таким email не существует"
+			})
+		}
+	} catch (err) {
+		return res.status(400).json({
+			message: err.message,
+		})
+	}
+
+})
+
+
+
 
 // Підключаємо роутер до бек-енду
 module.exports = router

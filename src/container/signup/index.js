@@ -75,7 +75,7 @@ class SignupForm extends Form {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: this.convertData,
+					body: this.convertData(),
 				})
 				const data = await res.json()
 
