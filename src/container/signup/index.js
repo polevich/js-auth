@@ -83,6 +83,7 @@ class SignupForm extends Form {
 				if (res.ok) {
 					this.setAlert('success', data.message)
 					saveSession(data.session)
+					location.assign('/')
 				} else {
 					this.setAlert('error', data.message)
 				}

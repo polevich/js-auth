@@ -70,6 +70,7 @@ router.post('/signup', function (req, res) {
 
 		const newUser = User.create({ email, password, role })
 		const session = Session.create(newUser)
+		Confirm.create(newUser.email)
 
 		return res.status(200).json({
 			message: "Пользователь успешно зарегистрирован",
@@ -191,9 +192,85 @@ router.post('/recovery-confirm', function (req, res) {
 
 		user.password = password
 		console.log(user)
+		const session = Session.create(user)
 
 		return res.status(200).json({
-			message: "Пароль изменен"
+			message: "Пароль изменен",
+			session,
+		})
+
+	} catch (err) {
+		return res.status(400).json({
+			message: err.message,
+		})
+	}
+})
+
+// ================================================================
+
+// router.get Створює нам один ентпоїнт
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/signup-confirm', function (req, res) {
+	// res.render генерує нам HTML сторінку
+
+	// ↙️ cюди вводимо назву файлу з сontainer
+	return res.render('signup-confirm', {
+		// вказуємо назву контейнера
+		name: 'signup-confirm',
+		// вказуємо назву компонентів
+		component: ['back-button', 'field'],
+
+		// вказуємо назву сторінки
+		title: 'Signup confirm page',
+		// ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
+		// вказуємо дані,
+		data: {
+		},
+	})
+	// ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.post('/signup-confirm', function (req, res) {
+	const { code, token } = req.body
+
+	if (!code || !token) {
+		return res.status(400).json({
+			message: "Ошибка. Обязательные поля отсутствуют"
+		})
+	}
+
+	try {
+		const session = Session.get(token)
+
+		if (!session) {
+			return res.status(400).json({
+				message: 'Ошибка. Вы не вошли в аккаунт'
+			})
+		}
+		const email = Confirm.getData(code)
+
+		if (!email) {
+			return res.status(400).json({
+				message: 'Код не существует'
+			})
+		}
+
+		if (email !== session.user.email) {
+			return res.status(400).json({
+				message: 'Код не действительный'
+			})
+		}
+
+		const user = User.getByEmail(session.user.email)
+		user.isConfirm = true
+		session.user.isConfirm = true
+
+		return res.status(200).json({
+			message: 'Вы подтвердили свою почту',
+			session,
 		})
 
 	} catch (err) {

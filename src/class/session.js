@@ -3,7 +3,12 @@ class Session {
 
 	constructor(user) {
 		this.token = Session.generateCode()
-		this.user = user
+		this.user = {
+			email: user.email,
+			isConfirm: user.isConfirm,
+			role: user.role,
+			id: user.id,
+		}
 	}
 
 	static generateCode = () => {

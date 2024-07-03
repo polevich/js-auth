@@ -1,18 +1,14 @@
-import { Form, REG_EXP_EMAIL, REG_EXP_PASSWORD } from '../../script/form'
-import { saveSession } from '../../script/session'
+import { Form } from '../../script/form'
+import { saveSession, getTokenSession } from '../../script/session'
 
-class RecoveryConfirmForm extends Form {
+class SignupConfirmForm extends Form {
 
 	FIELD_NAME = {
 		CODE: 'code',
-		PASSWORD: 'password',
-		PASSWORD_AGAIN: 'passwordAgain',
 	}
 	FIELD_ERROR = {
 		IS_EMPTY: "Введите значения в поле",
 		IS_BIG: "Очень длинное значение, уберите лишнее",
-		PASSWORD: "Пароль должен состоять из не менее 8 символов, включая хотя бы одну цифру, маленькую или большую",
-		PASSWORD_AGAIN: "Ваш второй пароль не сохраняется с первым",
 	}
 
 	validate = (name, value) => {
@@ -23,21 +19,6 @@ class RecoveryConfirmForm extends Form {
 		if (String(value).length > 20) {
 			return this.FIELD_ERROR.IS_BIG
 		}
-
-		if (name === this.FIELD_NAME.PASSWORD) {
-			if (!REG_EXP_PASSWORD.test(String(value))) {
-				return this.FIELD_ERROR.PASSWORD
-			}
-		}
-
-		if (name === this.FIELD_NAME.PASSWORD_AGAIN) {
-			if (
-				String(value) !== this.value[this.FIELD_NAME.PASSWORD]
-			) {
-				return this.FIELD_ERROR.PASSWORD_AGAIN
-			}
-		}
-
 	}
 
 	submit = async () => {
@@ -48,7 +29,7 @@ class RecoveryConfirmForm extends Form {
 			this.setAlert('progress', 'Загрузка...')
 
 			try {
-				const res = await fetch('/recovery-confirm', {
+				const res = await fetch('/signup-confirm', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -74,10 +55,10 @@ class RecoveryConfirmForm extends Form {
 	convertData = () => {
 		return JSON.stringify({
 			[this.FIELD_NAME.CODE]: Number(this.value[this.FIELD_NAME.CODE]),
-			[this.FIELD_NAME.PASSWORD]: this.value[this.FIELD_NAME.PASSWORD],
+			token: getTokenSession(),
 		})
 	}
 }
 
-window.recoveryConfirmForm = new RecoveryConfirmForm()
+window.signupConfirmForm = new SignupConfirmForm()
 
