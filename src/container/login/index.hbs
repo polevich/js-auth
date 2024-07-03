@@ -9,37 +9,24 @@
 	</header>
 
 	<form class="page__section">
-		<h1 class="page__title">Регистрация</h1>
+		<h1 class="page__title">Вход</h1>
 
 		<div class="form">
 			<div class="form__item">
 				{{> field action="signupForm.change" label="Электронный адрес" type="email" name="email" placeholder="Ваш email"}}
 				<span name="email" class="form__error">Ошибка</span>
 			</div>
-			<div class="form__item">
-				{{> field-select action="signupForm.change" label="Роль" name="role" placeholder="Выберите роль" list=data.role}}
-				<span name="role" class="form__error">Ошибка</span>
-			</div>
+
 			<div class="form__item">
 				{{> field-password action="signupForm.change" label="Пароль" name="password" placeholder="Введите пароль"}}
 				<span name="password" class="form__error">Ошибка</span>
 			</div>
-			<div class="form__item">
-				{{> field-password action="signupForm.change" label="Пароль еще раз" name="passwordAgain" placeholder="Введите пароль"}}
-				<span name="passwordAgain" class="form__error">Ошибка</span>
-			</div>
 
-			<div class="form__item">
-				{{> field-checkbox action="signupForm.change" label="Вы соглашаетесь с правилами сервиса" name="isConfirm" }}
-				<span name="isConfirm" class="form__error">Ошибка</span>
-			</div>
-		</div>
-		
-		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Зарегистрироваться</button>
+		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Войти</button>
 		
 		<span class="alert alert--disabled" type="button">Внимание, ошибка!</span>
 	
-		<span class="link__prefix">Есть аккаунт? <a href="/login" class="link">Войти</a></span>
+		<span class="link__prefix">Забыли пароль? <a href="/recovery" class="link">Восстановить</a></span>
 	
 	</form>
 </div>

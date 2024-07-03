@@ -62,3 +62,14 @@ class SignupConfirmForm extends Form {
 
 window.signupConfirmForm = new SignupConfirmForm()
 
+document.addEventListener('DOMContentLoaded', () => {
+	try {
+		if (window.session) {
+			if (window.session.user.isConfirm) {
+				location.assign('/')
+			}
+		} else {
+			location.assign('/')
+		}
+	} catch (e) { }
+})
