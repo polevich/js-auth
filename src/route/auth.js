@@ -5,6 +5,7 @@ const router = express.Router()
 
 const { User } = require('../class/user')
 const { Confirm } = require('../class/confirm')
+const { Session } = require('../class/session')
 
 User.create({
 	email: 'test@mail.com',
@@ -67,9 +68,12 @@ router.post('/signup', function (req, res) {
 			})
 		}
 
-		User.create({ email, password, role })
+		const newUser = User.create({ email, password, role })
+		const session = Session.create(newUser)
+
 		return res.status(200).json({
 			message: "Пользователь успешно зарегистрирован",
+			session,
 		})
 	} catch (err) {
 		return res.status(400).json({
