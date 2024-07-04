@@ -269,8 +269,8 @@ router.post('/signup-confirm', function (req, res) {
 			})
 		}
 
-		// const user = User.getByEmail(session.user.email)
-		// user.isConfirm = true
+		const user = User.getByEmail(session.user.email)
+		user.isConfirm = true
 		session.user.isConfirm = true
 
 		return res.status(200).json({
