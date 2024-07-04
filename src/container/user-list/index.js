@@ -1,5 +1,5 @@
-export { List } from '../../script/list'
-export { USER_ROLE } from '../../script/user'
+import { List } from '../../script/list'
+import { USER_ROLE } from '../../script/user'
 
 class UserList extends List {
 	constructor() {
@@ -11,6 +11,8 @@ class UserList extends List {
 
 	loadData = async () => {
 		this.updateStatus(this.STATE.LOADING)
+
+		// return null
 
 		try {
 			const res = await fetch('/user-list-data', {
@@ -50,14 +52,29 @@ class UserList extends List {
 		switch (this.status) {
 			case this.STATE.LOADING:
 				this.element.innerHTML = `
-					<span class="alert alert--progress">Loading...</span>
+					<div class="user">
+						<span class="user__title skeleton"></span>
+						<span class="user__sub skeleton"></span>
+					</div>
+					<div class="user">
+						<span class="user__title skeleton"></span>
+						<span class="user__sub skeleton"></span>
+					</div>
+					<div class="user">
+						<span class="user__title skeleton"></span>
+						<span class="user__sub skeleton"></span>
+					</div>
+					<div class="user">
+						<span class="user__title skeleton"></span>
+						<span class="user__sub skeleton"></span>
+					</div>
 					`
 				break
 
 			case this.STATE.SUCCESS:
 				this.data.list.forEach((item) => {
 					this.element.innerHTML += `
-					<a href="/user-item?id=${item.id}" class="user user-click">
+					<a href="/user-item?id=${item.id}" class="user user--click">
 						<span class="user__title">${item.email}</span>
 						<span class="user__sub">${item.role}</span>
 					</a>

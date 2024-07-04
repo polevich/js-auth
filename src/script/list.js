@@ -6,7 +6,8 @@ export class List {
 	}
 
 	status = null
-	data = nullelement = null
+	data = null
+	element = null
 
 	updateStatus = (status, data) => {
 		this.status = status
