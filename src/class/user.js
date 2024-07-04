@@ -40,6 +40,8 @@ class User {
 	static getByEmail(email) {
 		return (this.#list.find((user) => user.email === String(email).toLowerCase()) || null)
 	}
+
+	static getList = () => this.#list
 }
 
 module.exports = {
