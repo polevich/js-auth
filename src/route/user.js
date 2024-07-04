@@ -100,7 +100,6 @@ router.get('/user-item-data', function (req, res) {
 			isConfirm: user.isConfirm,
 		}
 	})
-
 })
 
 // Підключаємо роутер до бек-енду

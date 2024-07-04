@@ -12,11 +12,13 @@ User.create({
 	password: 123,
 	role: 1,
 })
+
 User.create({
 	email: 'admin@mail.com',
 	password: 123,
 	role: 2,
 })
+
 User.create({
 	email: 'developer@mail.com',
 	password: 123,
@@ -63,7 +65,9 @@ router.get('/signup', function (req, res) {
 
 router.post('/signup', function (req, res) {
 	const { email, password, role } = req.body
+
 	console.log(req.body)
+
 	if (!email || !password || !role) {
 		return res.status(400).json({
 			message: "Ошибка. Обязательные поля отсутствуют",

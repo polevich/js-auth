@@ -111,6 +111,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (!window.session || !window.session.user.isConfirm) {
 		location.assign('/')
 	}
-
 	new UserItem()
 })
