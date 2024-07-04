@@ -32,6 +32,9 @@ router.get('/user-list', function (req, res) {
 
 router.get('/user-list-data', function (req, res) {
 	const list = User.getList()
+
+	console.log(list)
+
 	if (list.length === 0) {
 		return res.status(400).json({
 			message: 'Список пользователей пуст'

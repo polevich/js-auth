@@ -1,4 +1,4 @@
-class List {
+export class List {
 	STATE = {
 		LOADING: 'loading',
 		SUCCESS: 'success',
@@ -7,4 +7,14 @@ class List {
 
 	status = null
 	data = nullelement = null
+
+	updateStatus = (status, data) => {
+		this.status = status
+		if (data) this.data = data
+		this.updateView()
+	}
+
+	updateView = () => { }
+	loadData = async () => { }
+	convertData = () => { }
 }
