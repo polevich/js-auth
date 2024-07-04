@@ -13,16 +13,16 @@
 
 		<div class="form">
 			<div class="form__item">
-				{{> field action="signupForm.change" label="Электронный адрес" type="email" name="email" placeholder="Ваш email"}}
+				{{> field action="loginForm.change" label="Электронный адрес" type="email" name="email" placeholder="Ваш email"}}
 				<span name="email" class="form__error">Ошибка</span>
 			</div>
 
 			<div class="form__item">
-				{{> field-password action="signupForm.change" label="Пароль" name="password" placeholder="Введите пароль"}}
+				{{> field-password action="loginForm.change" label="Пароль" name="password" placeholder="Введите пароль"}}
 				<span name="password" class="form__error">Ошибка</span>
 			</div>
 
-		<button onclick="signupForm.submit()" class="button button--disabled" type="button">Войти</button>
+		<button onclick="loginForm.submit()" class="button button--disabled" type="button">Войти</button>
 		
 		<span class="alert alert--disabled" type="button">Внимание, ошибка!</span>
 	

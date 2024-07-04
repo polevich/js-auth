@@ -212,6 +212,11 @@ router.post('/recovery-confirm', function (req, res) {
 
 // ↙️ тут вводимо шлях (PATH) до сторінки
 router.get('/signup-confirm', function (req, res) {
+	const { renew, email } = req.query
+
+	if (renew) {
+		Confirm.create(email)
+	}
 	// res.render генерує нам HTML сторінку
 
 	// ↙️ cюди вводимо назву файлу з сontainer
@@ -264,14 +269,15 @@ router.post('/signup-confirm', function (req, res) {
 			})
 		}
 
-		const user = User.getByEmail(session.user.email)
-		user.isConfirm = true
+		// const user = User.getByEmail(session.user.email)
+		// user.isConfirm = true
 		session.user.isConfirm = true
 
 		return res.status(200).json({
 			message: 'Вы подтвердили свою почту',
 			session,
 		})
+
 
 	} catch (err) {
 		return res.status(400).json({
@@ -299,13 +305,49 @@ router.get('/login', function (req, res) {
 		title: 'Login page',
 		// ... сюди можна далі продовжувати додавати потрібні технічні дані, які будуть використовуватися в layout
 		// вказуємо дані,
-		data: {
-		},
+		data: {},
 	})
 	// ↑↑ сюди вводимо JSON дані
 })
 
 // ================================================================
+
+router.post('/login', function (req, res) {
+	const { email, password } = req.body
+
+	if (!email || !password) {
+		return res.status(400).json({
+			message: "Ошибка. Обязательные поля отсутствуют"
+		})
+	}
+
+	try {
+		const user = User.getByEmail(email)
+
+		if (!user) {
+			return res.status(400).json({
+				message: 'Ошибка. Пользователь с таким email не существует'
+			})
+		}
+
+		if (user.password !== password) {
+			return res.status(400).json({
+				message: 'Ошибка. Пароль не подходит'
+			})
+		}
+		const session = Session.create(user)
+
+		return res.status(200).json({
+			message: 'Вы вошли',
+			session,
+		})
+	} catch (err) {
+		return res.status(400).json({
+			message: err.message
+		})
+	}
+
+})
 
 // Підключаємо роутер до бек-енду
 module.exports = router

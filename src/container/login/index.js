@@ -1,23 +1,16 @@
 import { Form, REG_EXP_EMAIL, REG_EXP_PASSWORD } from '../../script/form'
 import { saveSession } from '../../script/session'
 
-class SignupForm extends Form {
+class LoginForm extends Form {
 
 	FIELD_NAME = {
 		EMAIL: 'email',
 		PASSWORD: 'password',
-		PASSWORD_AGAIN: 'passwordAgain',
-		ROLE: 'role',
-		IS_CONFIRM: 'isConfirm',
 	}
 	FIELD_ERROR = {
 		IS_EMPTY: "Введите значения в поле",
 		IS_BIG: "Очень длинное значение, уберите лишнее",
 		EMAIL: "Введите корректное значение email адреса",
-		PASSWORD: "Пароль должен состоять из не менее 8 символов, включая хотя бы одну цифру, маленькую или большую",
-		PASSWORD_AGAIN: "Ваш второй пароль не сохраняется с первым",
-		NOT_CONFIRM: "Вы не соглашаетесь с правилами",
-		ROLE: "Вы не выбрали роль",
 	}
 
 	validate = (name, value) => {
@@ -35,32 +28,6 @@ class SignupForm extends Form {
 			}
 		}
 
-		if (name === this.FIELD_NAME.PASSWORD) {
-			if (!REG_EXP_PASSWORD.test(String(value))) {
-				return this.FIELD_ERROR.PASSWORD
-			}
-		}
-
-		if (name === this.FIELD_NAME.PASSWORD_AGAIN) {
-			if (
-				String(value) !== this.value[this.FIELD_NAME.PASSWORD]
-			) {
-				return this.FIELD_ERROR.PASSWORD_AGAIN
-			}
-		}
-
-		if (name === this.FIELD_NAME.ROLE) {
-			if (isNaN(value)) {
-				return this.FIELD_ERROR.ROLE
-			}
-		}
-
-		if (name === this.FIELD_NAME.IS_CONFIRM) {
-			if (Boolean(value) !== true) {
-				return this.FIELD_ERROR.NOT_CONFIRM
-			}
-		}
-
 	}
 
 	submit = async () => {
@@ -71,7 +38,7 @@ class SignupForm extends Form {
 			this.setAlert('progress', 'Загрузка...')
 
 			try {
-				const res = await fetch('/signup', {
+				const res = await fetch('/login', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -98,12 +65,11 @@ class SignupForm extends Form {
 		return JSON.stringify({
 			[this.FIELD_NAME.EMAIL]: this.value[this.FIELD_NAME.EMAIL],
 			[this.FIELD_NAME.PASSWORD]: this.value[this.FIELD_NAME.PASSWORD],
-			[this.FIELD_NAME.ROLE]: this.value[this.FIELD_NAME.ROLE],
 		})
 	}
 }
 
-window.signupForm = new SignupForm()
+window.loginForm = new LoginForm()
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (window.session) {
